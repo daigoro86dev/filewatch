@@ -2,12 +2,17 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    Config config = {0};
+
+    parse_arguments(argc, argv, &config);
+
+    if (config.path == NULL)
     {
-        fprintf(stderr, "Usage: %s <directory_to_watch>\n", argv[0]);
+        fprintf(stderr, "Error: You must specify a directory to watch.\n");
+        print_usage(argv[0]);
         return EXIT_FAILURE;
     }
 
-    watch_directory(argv[1]);
+    watch_directory(&config);
     return EXIT_SUCCESS;
 }
